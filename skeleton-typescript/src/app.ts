@@ -1,9 +1,12 @@
 import {Router, RouterConfiguration} from 'aurelia-router';
+import * as moment from 'moment';
 
 export class App {
   public router: Router;
 
   public configureRouter(config: RouterConfiguration, router: Router) {
+    console.log('typeof moment', typeof moment);
+
     config.title = 'Aurelia';
     config.map([
       { route: ['', 'welcome'], name: 'welcome',      moduleId: 'welcome',      nav: true, title: 'Welcome' },
