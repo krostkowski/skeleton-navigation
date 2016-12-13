@@ -21,11 +21,12 @@ gulp.task('build-system', function() {
       "typescript": require('typescript')
     });
   }
+
   return gulp.src(paths.dtsSrc.concat(paths.source))
     .pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
     .pipe(changed(paths.output, {extension: '.ts'}))
     .pipe(sourcemaps.init({loadMaps: true}))
-    .pipe(typescript(typescriptCompiler))
+    .pipe(typescriptCompiler())
     .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '/src'}))
     .pipe(gulp.dest(paths.output));
 });
@@ -33,6 +34,7 @@ gulp.task('build-system', function() {
 // copies changed html files to the output directory
 gulp.task('build-html', function() {
   return gulp.src(paths.html)
+    .pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
     .pipe(changed(paths.output, {extension: '.html'}))
     .pipe(htmlmin({collapseWhitespace: true}))
     .pipe(gulp.dest(paths.output));
